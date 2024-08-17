@@ -4,7 +4,7 @@ use yii\helpers\Html;
 
 /** @var yii\web\View $this */
 /** @var app\models\Authitem $model */
-
+/** @var array $ruleList */
 $this->title = Yii::t('app', 'Create Authitem');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Authitems'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'ruleList' => $ruleList,
     ]) ?>
 
 </div>

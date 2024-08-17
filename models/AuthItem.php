@@ -20,7 +20,7 @@ use Yii;
  * @property AuthItemChild[] $authItemChildren0
  * @property AuthItem[] $children
  * @property AuthItem[] $parents
- * @property AuthRule $ruleName
+ * @property Rule $ruleName
  */
 class AuthItem extends \yii\db\ActiveRecord
 {
@@ -43,7 +43,7 @@ class AuthItem extends \yii\db\ActiveRecord
             [['description', 'data'], 'string'],
             [['name', 'rule_name'], 'string', 'max' => 64],
             [['name'], 'unique'],
-            [['rule_name'], 'exist', 'skipOnError' => true, 'targetClass' => AuthRule::class, 'targetAttribute' => ['rule_name' => 'name']],
+            [['rule_name'], 'exist', 'skipOnError' => true, 'targetClass' => Rule::class, 'targetAttribute' => ['rule_name' => 'name']],
         ];
     }
 
@@ -116,11 +116,11 @@ class AuthItem extends \yii\db\ActiveRecord
     /**
      * Gets query for [[RuleName]].
      *
-     * @return \yii\db\ActiveQuery|AuthRuleQuery
+     * @return \yii\db\ActiveQuery|RuleQuery
      */
     public function getRuleName()
     {
-        return $this->hasOne(AuthRule::class, ['name' => 'rule_name']);
+        return $this->hasOne(Rule::class, ['name' => 'rule_name']);
     }
 
     /**

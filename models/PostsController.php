@@ -1,22 +1,22 @@
 <?php
 
-namespace app\controllers;
+namespace app\models;
 
-use app\models\Authitem;
-use app\models\AuthitemSearch;
+use app\models\Posts;
+use app\models\PostsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * AuthItemController implements the CRUD actions for Authitem model.
+ * PostsController implements the CRUD actions for Posts model.
  */
-class AuthItemController extends Controller
+class PostsController extends Controller
 {
     /**
      * @inheritDoc
      */
-    public function behaviors(): array
+    public function behaviors()
     {
         return array_merge(
             parent::behaviors(),
@@ -32,13 +32,13 @@ class AuthItemController extends Controller
     }
 
     /**
-     * Lists all Authitem models.
+     * Lists all Posts models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new AuthitemSearch();
+        $searchModel = new PostsSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -48,93 +48,84 @@ class AuthItemController extends Controller
     }
 
     /**
-     * Displays a single Authitem model.
-     * @param string $name Name
+     * Displays a single Posts model.
+     * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($name)
+    public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($name),
+            'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new AuthItem model.
+     * Creates a new Posts model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new AuthItem();
+        $model = new Posts();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'name' => $model->name]);
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
             $model->loadDefaultValues();
         }
 
-        // Retrieve available rules for the dropdown
-        $rules = \app\models\Rule::find()->all();
-        $ruleList = \yii\helpers\ArrayHelper::map($rules, 'name', 'name');
-
         return $this->render('create', [
             'model' => $model,
-            'ruleList' => $ruleList,
         ]);
     }
 
     /**
-     * Updates an existing AuthItem model.
+     * Updates an existing Posts model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $name Name
+     * @param int $id ID
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($name)
+    public function actionUpdate($id)
     {
-        $model = $this->findModel($name);
+        $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'name' => $model->name]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
-
-        // Retrieve available rules for the dropdown
-        $rules = \app\models\Rule::find()->all();
-        $ruleList = \yii\helpers\ArrayHelper::map($rules, 'name', 'name');
 
         return $this->render('update', [
             'model' => $model,
-            'ruleList' => $ruleList,
         ]);
     }
+
     /**
-     * Deletes an existing Authitem model.
+     * Deletes an existing Posts model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param string $name Name
+     * @param int $id ID
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($name)
+    public function actionDelete($id)
     {
-        $this->findModel($name)->delete();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Authitem model based on its primary key value.
+     * Finds the Posts model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $name Name
-     * @return Authitem the loaded model
+     * @param int $id ID
+     * @return Posts the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($name)
+    protected function findModel($id)
     {
-        if (($model = Authitem::findOne(['name' => $name])) !== null) {
+        if (($model = Posts::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

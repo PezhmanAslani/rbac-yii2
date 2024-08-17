@@ -50,7 +50,20 @@ class Rule extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
         ];
     }
-
+    /**
+     * @inheritdoc
+     */
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                $this->created_at = time();
+            }
+            $this->updated_at = time();
+            return true;
+        }
+        return false;
+    }
     /**
      * Gets query for [[AuthItems]].
      *
