@@ -17,7 +17,7 @@ class PostsController extends Controller
     /**
      * @inheritDoc
      */
-    public function behaviors()
+    public function behaviors(): array
     {
         return array_merge(
             parent::behaviors(),
@@ -68,13 +68,10 @@ class PostsController extends Controller
      */
     public function actionCreate()
     {
-
         if (!Yii::$app->user->can('createPost')) {
             throw new ForbiddenHttpException('You do not have permission to create posts.');
         }
-
         $model = new Posts();
-
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
@@ -82,7 +79,6 @@ class PostsController extends Controller
         } else {
             $model->loadDefaultValues();
         }
-
         return $this->render('create', [
             'model' => $model,
         ]);

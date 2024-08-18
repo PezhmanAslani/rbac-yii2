@@ -41,7 +41,10 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'Signup', 'url' => ['/site/signup']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => 'Auth Items', 'url' => ['/auth-item/index']],
+            ['label' => 'Auth Roles', 'url' => ['/rule/index']],
+            ['label' => 'Auth Assignments', 'url' => ['/auth-assignment/index']],
+            ['label' => 'Auth Item Rules', 'url' => ['/authitem-child/index']],
             Yii::$app->user->isGuest
                 ? ['label' => 'Login', 'url' => ['/site/login']]
                 : '<li class="nav-item">'
