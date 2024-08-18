@@ -68,6 +68,7 @@ class PostsController extends Controller
      */
     public function actionCreate()
     {
+
         if (!Yii::$app->user->can('createPost')) {
             throw new ForbiddenHttpException('You do not have permission to create posts.');
         }
